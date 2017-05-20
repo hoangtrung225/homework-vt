@@ -1,6 +1,4 @@
-telnetd:telnetd.o
-	gcc -std=c99 -o telnetd -g telnetd.o
-telnetd.o:telnetd.c
-	gcc -std=c99 -c telnetd.c -g
+telnetd:telnetd.c
+	gcc -o telnetd telnetd.c -g -std=c99 -D_POSIX_SOURCE -D_GNU_SOURCE  
 clean:
 	rm -rf telnetd
