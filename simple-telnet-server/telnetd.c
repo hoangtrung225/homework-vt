@@ -13,7 +13,7 @@
 #define BUFFSIZE 1024 //* 64
 
 int send_shell_header(int sock, char* buffer);
-
+int parse_cmd(char* path);
 int main(int argc, char** argv){
     struct addrinfo hints, *res;
     struct sockaddr_storage client_addr;
@@ -71,37 +71,42 @@ int main(int argc, char** argv){
 		}
 
 		buffer[byte - 1] = '\0';
+		//parse user send message
+		char* path;
+		char* argv[16];
+		path = strtok(buffer, " ");	
+		argv[0] = path;
+		for(int i = 0; i < 16; i++){
+			argv[i+1] = strtok(NULL, " ");
+			if(argv[i+1] == NULL) break;
+		}
+		argv[15] = NULL;
 	
-		int pid;
-		pid = fork();
-		
-		//parrent stuff
-		if(pid > 0){
-			waitpid(pid, NULL, 0);
+		if(parse_cmd(path)	> 0){
+			chdir(argv[1]);
 			continue;
 		}
-		//child process
-		if(pid == 0){
-			//redirect STOUT STDERR to new_fd
-			dup2(new_fd, STDOUT_FILENO);
- 			dup2(new_fd, STDERR_FILENO);
+		else{
+				int pid;
+				pid = fork();
+				
+				//parrent stuff
+				if(pid > 0){
+					waitpid(pid, NULL, 0);
+					continue;
+				}
+				//child process
+				if(pid == 0){
+					//redirect STOUT STDERR to new_fd
+					dup2(new_fd, STDOUT_FILENO);
+					dup2(new_fd, STDERR_FILENO);
 
-			//close server listening socket
-			close(sockfd);
-		
-			//parse user send message
-			char* path;
-			char* argv[16];
-			path = strtok(buffer, " ");
-			argv[0] = path;
-			for(int i = 0; i < 16; i++){
-				argv[i+1] = strtok(NULL, " ");
-				if(argv[i+1] == NULL) break;
-			}
-			argv[15] = NULL;
-		 
-			execvp(path, argv);
-			exit(0);
+					//close server listening socket
+					close(sockfd);
+				
+					execvp(path, argv);
+					exit(0);
+				}
 		}
 	}
 }
@@ -134,5 +139,16 @@ int send_shell_header(int sock, char* buffer){
 	}
 	sprintf(buffer + strlen(buffer), " :\n");
 	int i = send(sock, buffer, strlen(buffer) + 1, 0);
-	return i;
+	// connection lost
+	if(i < 0)
+		return -1;
+	else
+		return i;
+}
+
+int parse_cmd(char* path){
+	if(strcmp(path, "cd") == 0)
+		return 1;
+	else 
+		return 0;
 }
