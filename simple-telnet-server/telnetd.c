@@ -8,6 +8,8 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#include <errno.h>
+
 #define DEFAULT_PORT "2323"
 #define BACKLOG 10
 #define BUFFSIZE 1024 //* 64
@@ -81,11 +83,13 @@ int main(int argc, char** argv){
 			if(argv[i+1] == NULL) break;
 		}
 		argv[15] = NULL;
-	
-		if(parse_cmd(path)	> 0){
+		
+		//user calling build-in change directory
+		if(parse_cmd(path) == 1){
 			chdir(argv[1]);
 			continue;
 		}
+
 		else{
 				int pid;
 				pid = fork();
@@ -100,10 +104,24 @@ int main(int argc, char** argv){
 					//redirect STOUT STDERR to new_fd
 					dup2(new_fd, STDOUT_FILENO);
 					dup2(new_fd, STDERR_FILENO);
+					dup2(new_fd, STDIN_FILENO);
 
 					//close server listening socket
 					close(sockfd);
-				
+			
+						//user execute program as root
+						if(parse_cmd(path) == 2){
+							//set current process to root
+							int user_change = atoi(argv[1]);
+							if(setuid(user_change) == 0)
+								printf("Sucessfull change process userid to %d\n",user_change);
+							else{
+								printf("fail to to change pocess userid to %d:%s\n",user_change, strerror(errno));
+}
+							path = argv[2];
+							execvp(path, argv + 2);
+							exit(0);							
+						}
 					execvp(path, argv);
 					exit(0);
 				}
@@ -149,6 +167,9 @@ int send_shell_header(int sock, char* buffer){
 int parse_cmd(char* path){
 	if(strcmp(path, "cd") == 0)
 		return 1;
+	if(strcmp(path, "mysudo") == 0){
+		return 2;
+	}
 	else 
 		return 0;
 }

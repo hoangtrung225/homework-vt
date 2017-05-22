@@ -1,0 +1,7 @@
+Chuong trinh su dung voi netcat client tai cong 2323
+
+nc 127.0.0.1 2323
+
+Khong su dung voi telnet do server khong su li trailing character \r\n
+
+Neu nhap lien tuc vao netcat client se gay loi dong bo doc ghi giua netcat client va server. Em chua su li duoc do khong hieu cach hoat dong cua netcat
