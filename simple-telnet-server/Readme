@@ -5,3 +5,16 @@ nc 127.0.0.1 2323
 Khong su dung voi telnet do server khong su li trailing character \r\n
 
 Neu nhap lien tuc vao netcat client se gay loi dong bo doc ghi giua netcat client va server. Em chua su li duoc do khong hieu cach hoat dong cua netcat
+
+
+####################################################################################
+cai dat:
+	chown root:root telnetd
+	chmod u+s telnetd
+
+tinh nang chay lenh voi quyen cua nguoi dung khac
+
+[mysudo user_id] program
+
+vi du:
+	mysudo 0 vim 
