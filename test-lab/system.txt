@@ -1,0 +1,111 @@
+********************************************************************************
+*
+* Example System Configuration File (system.txt) for use with
+* the Solaris Development Package for Dialogic(R) DSI Network Interface Boards
+*
+* Edit this file to reflect your configuration.
+*
+********************************************************************************
+*
+* Verification of modules
+*
+VERIFY
+
+*
+* Essential modules running on host:
+*
+LOCAL           0x20            * ssds/ssdh/ssdm - Board interface task
+LOCAL           0x00            * tim_sol - Timer task
+*
+* Optional modules running on the host:
+*
+LOCAL           0xcf            * s7_mgt - Management/config task
+LOCAL           0xef            * s7_log - Display and logging utility
+*LOCAL          0x2d            * upe - Example user part task
+
+LOCAL		0x0d		* Roamware ISUP Server
+LOCAL		0x1d		* SmartSTP - IN
+LOCAL		0x2d		* SmartSTP - OUT
+LOCAL		0x3d		* SmartSTP - Monitor
+LOCAL       0x4d            * SmartSTP - LMM in
+LOCAL       0x5d            * SmartSTP - LMM out
+LOCAL       0x9d            * tSMSC Application server 1
+
+LOCAL       0x7d            
+*LOCAL       0xb1            * RSI Server 1
+* Modules that optionally run on the host:
+*
+LOCAL         0x22            * MTP3 module
+LOCAL         0x33            * SCCP module
+LOCAL         0x23            * ISUP module
+
+* Essential modules running on the board (all redirected via ssd):
+*
+REDIRECT        0x71    0x20    * MTP2 module (except SS7HD boards)
+*REDIRECT      0x81    0x20    * MTP2 module_id for SP 0 (SS7HD boards only)
+*REDIRECT      0x91    0x20    * MTP2 module_id for SP 1 (SS7HD boards only)
+*REDIRECT      0xe1    0x20    * MTP2 module_id for SP 2 (SS7HD boards only)
+*REDIRECT      0xf1    0x20    * MTP2 module_id for SP 3 (SS7HD boards only)
+REDIRECT        0x10    0x20    * CT bus/Clocking control module
+REDIRECT        0x8e    0x20    * On-board management module
+*REDIRECT        0xce    0x20    * MGMT module_id for SP 0
+*REDIRECT        0xde    0x20    * MGMT module_id for SP 1
+
+*REDIRECT      0x6d  0xb1       * tSMSC server 2
+*REDIRECT      0x8d  0xb1       * Application 1 SmartSTP - Monitor
+*
+*
+* Modules that optionally run on the board (all redirected via ssd):
+*
+* REDIRECT      0x22    0x20    * MTP3 module
+* REDIRECT      0x23    0x20    * ISUP module
+* REDIRECT      0x4a    0x20    * TUP module
+* REDIRECT      0x33    0x20    * SCCP module
+* REDIRECT      0x14    0x20    * TCAP module
+* REDIRECT      0x15    0x20    * MAP module
+* REDIRECT      0x25    0x20    * IS41 module
+* REDIRECT      0x35    0x20    * INAP module
+*
+*
+* SS7MD boards only
+* Modules logically running on the board (all redirected via ssdm):
+*
+*REDIRECT      0x31    0x20    * ATM Module
+*REDIRECT      0x41    0x20    * Q.SAAL Module
+*REDIRECT      0x61    0x20    * Signalling Driver Module
+*
+* Redirection of status indications:
+*
+REDIRECT        0xdf    0xef    * LIU/MTP2 status messages -> s7_log
+*
+*DEFAULT_MODULE 0xef * Redirect messages by default to module 0xef
+
+* Dimensioning the Message Passing Environment:
+*
+NUM_MSGS        20000           * Number of standard size
+*                                 messages in the environment
+NUM_LMSGS      200             * Number of 'long' messages
+*                                 (used for certain TCAP based applications)
+*
+* Now start-up all local tasks:
+* for SPCI start-up use ssds
+* for SS7HD boards use ssdh
+* for SS7MD boards use ssdm
+* for SS7LD boards use ssdl
+FORK_PROCESS    /opt/DSI/ssdl -t
+FORK_PROCESS    /opt/DSI/tim
+FORK_PROCESS    /opt/DSI/tick
+FORK_PROCESS    /opt/DSI/s7_mgt -d
+FORK_PROCESS    /opt/DSI/s7_log -td -n20 -s10000 -m0xef -o0xff1f -f/opt/DSI/ss7mdl4.log
+*FORK_PROCESS    /opt/DSI/HSTBIN/mtp3 -m0x22 -t
+*FORK_PROCESS    /opt/DSI/HSTBIN/isup -m0x23 -t
+*FORK_PROCESS    /opt/DSI/HSTBIN/sccp -m0x33 -t
+*FORK_PROCESS    /opt/DSI/HSTBIN/isup -m0x23 -t
+
+* RSI Configuration - Inter Chassis Tunneling
+*FORK_PROCESS	/opt/DSI/rsi -p/tmp/rsilnk -r/opt/DSI/rsi_lnk -l1 -m0xb1
+*FORK_PROCESS	/opt/DSI/rsicmd 0 0xef 1 0 9000 0xb1
+*
+*
+********************************************************************************
+

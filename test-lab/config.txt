@@ -1,0 +1,58 @@
+***************************************************************************
+* This file needs to be modified to suit individual circumstances.
+* Refer to the relevant Programmer's Manuals for further details.
+*
+***************************************************************************
+* For SPCI2S, SPCI4S and CPM8 / PCI boards:
+* SEPTELCP_BOARD <board_id> <flags> <code_file> <run_mode>
+* SEPTELPCI_BOARD 0 0x0043 ss7.dc3 ISUP
+*
+* SS7_BOARD <board_id> <board_type> <flags> <code_file> <run_mode>
+SS7_BOARD   0          SS7LD        0x0001  ss7.dc7     ISUP
+*
+*
+* Configure individual E1/T1 interfaces:
+* LIU_CONFIG <board_id> <liu_id> <liu_type> <line_code> <frame_format> <crc_mode>
+LIU_CONFIG 0 0 5 1 1 1
+*
+*
+* MTP Parameters:
+* MTP_CONFIG <reserved> <reserved> <options>
+MTP_CONFIG 0 0 0x0000000b
+*
+* Define linksets:
+* MTP_LINKSET <linkset_id> <adjacent_spc> <num_links> <flags> <local_spc> <ssf>
+MTP_LINKSET 0 2 1 0x0000 1 0x08
+*
+* Define signaling links:
+* MTP_LINK <link_id> <linkset_id> <link_ref> <slc> <board_id> <blink> <stream> <timeslot> <flags>
+* (Note: For PCCS6 boards the first LIU port is stream=16
+* whilst for SPCI2S, SPCI4S and CPM8 / PCI boards the first LIU port is stream=0)
+MTP_LINK 0 0 0 0 0 0 0 16 0x0006
+*
+* Define a route for each remote signaling point:
+* MTP_ROUTE <dpc> <linkset_id> <user_part_mask>
+MTP_ROUTE 2 0 0x0020
+*
+*
+* Define any user provided Layer 4 protocol:
+* MTP_USER_PART <service_ind> <module_id> should be disable the MTP_USER_PART if you are running ISUP
+*MTP_USER_PART 0x0a 0x3d
+*
+*
+* Configure ISUP module:
+*ISUP_CONFIG <reserved> <reserved> <user_id> <options> <num_grps> <num_ccts>
+ISUP_CONFIG 0 0  0x3d 0x0435 1 32
+*
+* Configure ISUP circuit groups:
+* ISUP_CFG_CCTGRP <gid> <dpc> <base_cic> <base_cid> <cic_mask> <options> <user_inst> <user_id> <opc> <ssf> <variant> <options2>
+ISUP_CFG_CCTGRP 0 2 0x01 0x01 0x7fff7fff 0x001c 0 0x3d 1 0x8 0 0x00
+*
+* Configure TUP Parameters:
+* TUP_CONFIG <reserved> <reserved> <reserved> <options> <num_grps><num_ccts>
+*TUP_CONFIG 0 0 0 0x8141 4 64
+*
+* Define TUP circuit groups:
+* TUP_CFG_CCTGRP <gid> <dpc> <base_cic> <base_cid> <cic_mask> <options>
+* <user_inst> <user_id> <opc> <ssf>
+*TUP_CFG_CCTGRP 0 1 0x01 0x01 0x7fff7fff 0x0030 0 0x3d 2 0x08 
