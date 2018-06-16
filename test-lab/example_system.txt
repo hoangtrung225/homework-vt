@@ -1,0 +1,90 @@
+********************************************************************************
+*
+* Example System Configuration File (example_system.txt) for use with
+* the DSI Development Package.
+*
+* Edit this file to reflect your configuration.
+*
+********************************************************************************
+*
+* Essential modules running on host:
+*
+LOCAL           0x20            * ssds/ssdh/ssdm - Board interface task 
+LOCAL           0x00            * tim - Timer task
+*
+* Optional modules running on the host:
+*
+LOCAL           0xcf            * s7_mgt - Management/config task
+LOCAL           0xef            * s7_log - Display and logging utility  
+LOCAL           0x2d            * upe - Example user part task
+*
+* Modules that optionally run on the host:
+*
+LOCAL         0x22              * MTP3 module (and SS7LD 'mtp' and 'isup' run-mode)
+* LOCAL         0x23            * ISUP module (and SS7LD 'isup' run-mode)
+* LOCAL         0x4a            * TUP module
+* LOCAL         0x33            * SCCP module
+* LOCAL         0x14            * TCAP module
+* LOCAL         0x15            * MAP module
+* LOCAL         0x25            * IS41 module
+* LOCAL         0x35            * INAP module
+*
+* Essential modules running on the board (all redirected via ssd):
+*
+REDIRECT        0x71    0x20    * MTP2 module (except SS7HD boards)
+* REDIRECT      0x81    0x20    * MTP2 module_id for SP 0 (SS7HD boards only)
+* REDIRECT      0x91    0x20    * MTP2 module_id for SP 1 (SS7HD boards only)
+* REDIRECT      0xe1    0x20    * MTP2 module_id for SP 2 (SS7HD boards only)
+* REDIRECT      0xf1    0x20    * MTP2 module_id for SP 3 (SS7HD boards only)
+REDIRECT        0x10    0x20    * CT bus/Clocking control module
+REDIRECT        0x8e    0x20    * On-board management module
+*
+* Modules that optionally run on the board (all redirected via ssd):
+*
+* REDIRECT        0x22    0x20    * MTP3 module (except for SS7LD 'mtp' and 'isup' run modes)
+* REDIRECT      0x23    0x20    * ISUP module (except for SS7LD 'mtp' and 'isup' run modes)
+* REDIRECT      0x4a    0x20    * TUP module
+* REDIRECT      0x33    0x20    * SCCP module
+* REDIRECT      0x14    0x20    * TCAP module
+* REDIRECT      0x15    0x20    * MAP module
+* REDIRECT      0x25    0x20    * IS41 module
+* REDIRECT      0x35    0x20    * INAP module
+*
+* 
+* SS7MD boards only:
+* REDIRECT      0x31    0x20    * ATM Module 
+* REDIRECT      0x41    0x20    * Q.SAAL Module 
+* REDIRECT      0x61    0x20    * Signalling Driver Module 
+*
+* Redirection of status indications:
+*
+REDIRECT        0xdf    0xef    * LIU/MTP2 status messages -> s7_log
+*
+DEFAULT_MODULE  0xef            * Redirect messages by default to module 0xef
+*
+* Dimensioning the Message Passing Environment:
+*
+NUM_MSGS        5000            * Number of standard size 
+*                                 messages in the environment
+*NUM_LMSGS      200             * Number of 'long' messages 
+*                                 (used for certain TCAP based applications)
+*
+* Now start-up all local tasks:
+*   for SPCI start-up use ssds
+*   for SS7HD boards use ssdh
+*   for SS7MD boards use ssdm
+*   for SS7LD boards use ssdl
+*
+* FORK_PROCESS   ./ssds
+* FORK_PROCESS   ./ssdh
+* FORK_PROCESS   ./ssdm 
+* FORK_PROCESS   ./ssdl
+FORK_PROCESS    ./tim
+FORK_PROCESS    ./tick
+FORK_PROCESS    ./s7_mgt
+FORK_PROCESS    ./s7_log
+FORK_PROCESS    ./HSTBIN/mtp3
+FORK_PROCESS    ./upe
+*
+*
+********************************************************************************

@@ -34,7 +34,7 @@
 *SS7_BOARD 0 SS7MD 0x0001 ./DC/ss7.dc6 LSL
 *
 * For SS7LD boards:
-SS7_BOARD 0 SS7LD 0x0001 ./DC/ss7.dc7 MTP2
+*SS7_BOARD 0 SS7LD 0x0001 ./DC/ss7.dc7 MTP2
 *
 TRACE_MOD_ID    0xef    * Set default trace module to 0xef.
 *
@@ -72,7 +72,7 @@ MTP_LINKSET  0  1  2  0x0000  2  0x0008
 *          <stream> <timeslot> <flags>
 *
 * For SPCI4 / SPCI2S, SS7MD and SS7LD boards:
-MTP_LINK  0  0  0  0  0  0    0   16  0x0006
+*MTP_LINK  0  0  0  0  0  0    0   16  0x0006
 *MTP_LINK  1  0  1  1  1  0    0   1   0x0006
 * For SS7HD boards:
 *MTP_LINK  0  0  0  0  0  0-0  0   16  0x0006
