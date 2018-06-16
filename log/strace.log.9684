@@ -1,0 +1,5 @@
+set_robust_list(0xf6b2ebb0, 12)         = 0
+select(1024, NULL, NULL, NULL, {1, 0})  = 0 (Timeout)
+select(1024, NULL, NULL, NULL, {1, 0})  = 0 (Timeout)
+select(1024, NULL, NULL, NULL, {1, 0} <unfinished ...>
++++ killed by SIGKILL +++

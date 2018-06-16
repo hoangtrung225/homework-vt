@@ -1,0 +1,98 @@
+execve("/opt/DSI/s7_mgt", ["/opt/DSI/s7_mgt"], [/* 55 vars */]) = 0
+brk(0)                                  = 0x9f16000
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+mmap2(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff7789000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=132747, ...}) = 0
+mmap2(NULL, 132747, PROT_READ, MAP_PRIVATE, 3, 0) = 0xfffffffff7768000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/opt/DSI/32/libgctlib.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0`#\0\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0775, st_size=43356, ...}) = 0
+mmap2(NULL, 33936, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xfffffffff775f000
+mmap2(0xf7767000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8000) = 0xfffffffff7767000
+close(3)                                = 0
+access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
+open("/lib/i386-linux-gnu/i686/cmov/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\1\1\1\3\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0\300\233\1\0004\0\0\0"..., 512) = 512
+fstat64(3, {st_mode=S_IFREG|0755, st_size=1750780, ...}) = 0
+mmap2(NULL, 1755772, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xfffffffff75b2000
+mmap2(0xf7759000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1a7000) = 0xfffffffff7759000
+mmap2(0xf775c000, 10876, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xfffffffff775c000
+close(3)                                = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff75b1000
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff75b0000
+set_thread_area({entry_number:-1, base_addr:0xf75b0700, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1}) = 0 (entry_number:12)
+mprotect(0xf7759000, 8192, PROT_READ)   = 0
+mprotect(0xf77ae000, 4096, PROT_READ)   = 0
+munmap(0xf7768000, 132747)              = 0
+getpid()                                = 9681
+semget(0xe0410, 1, 0666)                = 12517376
+semop(12517376, {{0, 0, 0}, {0, 1, SEM_UNDO}}, 2) = 0
+shmget(0xe0418, 25568, 0666)            = 29458438
+shmat(29458438, 0, 0x1b6 /* SHM_??? */) = 0xf775b000f7782000
+semget(0xe0416, 1, 0666)                = 12582914
+shmget(0xe0414, 116, 0666)              = 29491215
+shmat(29491215, 0, 0x1b6 /* SHM_??? */) = 0xf775b000f7781000
+shmget(0xe0412, 392000, 0666)           = 29523988
+shmat(29523988, 0, 0x1b6 /* SHM_??? */) = 0xf775b000f7550000
+semget(0xe0417, 1, 0666)                = 12615683
+shmget(0xe0415, 116, 0666)              = 29556757
+shmat(29556757, 0, 0x1b6 /* SHM_??? */) = 0xf775b000f7780000
+shmget(0xe0413, 854400, 0666)           = 29589526
+shmat(29589526, 0, 0x1b6 /* SHM_??? */) = 0xf775b000f747f000
+semop(12517376, {{0, -1, SEM_UNDO|IPC_NOWAIT}}, 1) = 0
+msgrcv(84443149, 0xffc3549c, 12, -614135651377130312, IPC_NOWAIT) = -1 ENOMSG (No message of desired type)
+brk(0)                                  = 0x9f16000
+brk(0x9f37000)                          = 0x9f37000
+open("config.txt", O_RDONLY)            = 3
+fstat64(3, {st_mode=S_IFREG|0664, st_size=2242, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff777f000
+read(3, "********************************"..., 4096) = 2242
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+munmap(0xf777f000, 4096)                = 0
+gettimeofday({1525939641, 982310}, NULL) = 0
+open("/etc/localtime", O_RDONLY|O_CLOEXEC) = 3
+fstat64(3, {st_mode=S_IFREG|0644, st_size=361, ...}) = 0
+fstat64(3, {st_mode=S_IFREG|0644, st_size=361, ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff777f000
+read(3, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\6\0\0\0\6\0\0\0\0"..., 4096) = 361
+_llseek(3, -9, [352], SEEK_CUR)         = 0
+read(3, "\n<+07>-7\n", 4096)            = 9
+close(3)                                = 0
+munmap(0xf777f000, 4096)                = 0
+msgsnd(83591168, {1, "\340&z\367\1\0\0\0,\0U\367"}, 12, IPC_NOWAIT) = 0
+gettimeofday({1525939641, 982811}, NULL) = 0
+stat64("/etc/localtime", {st_mode=S_IFREG|0644, st_size=361, ...}) = 0
+msgsnd(83787779, {4294967297, "<\205\4\10\370R\303\377\0\302\7\10"}, 12, IPC_NOWAIT) = 0
+msgrcv(84443149, {4294967297, "\2]\0\0\0\0\0\0\244\304\7\10"}, 12, 4294967297, 0) = 12
+gettimeofday({1525939642, 22371}, NULL) = 0
+stat64("/etc/localtime", {st_mode=S_IFREG|0644, st_size=361, ...}) = 0
+msgsnd(83787779, {12884901889, "\30S\303\377\10S\303\377\0\302\7\10"}, 12, IPC_NOWAIT) = 0
+msgrcv(84443149, {21474836481, "\340\26}\367\0\0\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {34359738369, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {47244640257, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {60129542145, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {73014444033, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {85899345921, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {98784247809, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {111669149697, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {124554051585, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {137438953473, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {12884901889, "\241\251w\367\264\3222\366\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {150323855361, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {163208757249, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {180388626433, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {188978561025, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {201863462913, "\340f}\367@\1\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgrcv(84443149, {210453397505, ",\314x\367\0\0\0\0\244\304\7\10"}, 12, -614135651377130360, 0) = 12
+msgsnd(84508686, {214748364801, "h\252[\367\250T\303\377\274LU\367"}, 12, IPC_NOWAIT) = 0
+fstat64(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(136, 7), ...}) = 0
+mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xfffffffff777f000
+write(1, "SSD - board[0] - SSDSI_FAILURE\n", 31) = 31
+write(1, "S7MGT: FAILED\n", 14)         = 14
+exit_group(0)                           = ?
++++ exited with 0 +++
